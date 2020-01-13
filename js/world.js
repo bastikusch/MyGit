@@ -119,4 +119,14 @@ chart.seriesContainer.events.on("hit", function (ev) {
     marker.longitude = parseFloat(document.getElementById("long").value);
 });
 
+// var container = am4core.create("container", am4core.Container);
+// container.width = am4core.percent(1000);
+// container.height = am4core.percent(1000);
+//
+// // Create a container child
+// var rect = container.createChild(am4core.Rectangle);
+// rect.width = 100;
+// rect.height = 100;
+// rect.fill = am4core.color("red");
+
 

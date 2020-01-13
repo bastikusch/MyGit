@@ -19,12 +19,12 @@ function update() {
     lineTemplate.line.strokeWidth = 0.5;
     //lineTemplate.line.controlPointDistance = 0.2;
 
-    var n = parseFloat(document.getElementById("individuals").value);
-    var gen = parseFloat(document.getElementById("route_length").value);
-    var path_length = parseFloat(document.getElementById("incr_length").value);
-    var start_lat = parseFloat(document.getElementById("lat").value);
-    var start_long = parseFloat(document.getElementById("long").value);
-    var start = [start_lat, start_long];
+    // var n = parseFloat(document.getElementById("individuals").value);
+    // var gen = parseFloat(document.getElementById("route_length").value);
+    // var path_length = parseFloat(document.getElementById("incr_length").value);
+    // var start_lat = parseFloat(document.getElementById("lat").value);
+    // var start_long = parseFloat(document.getElementById("long").value);
+    // var start = [start_lat, start_long];
     var ver = document.getElementById("strategy").value;
     var sysnr = parseFloat(document.getElementById("system").value);
     var magnet = parseFloat(document.getElementById("magnet").value);
@@ -33,10 +33,21 @@ function update() {
     wind[2] = parseFloat(document.getElementById("v").value);
     var maxdays = parseFloat(document.getElementById("maxdays").value);
 
+    var h1 = document.getElementById("h1").value;
+    var h2 = document.getElementById("h2").value;
+    var h3 = document.getElementById("h3").value;
+    var h4 = document.getElementById("h4").value;
+    var initHeading_arr = [h1, h2, h3, h4];
+    var llambda_0 = document.getElementById("llambda0").value;
+    console.log(llambda_0);
+    if (h1 != 0 || h2 != 0 || h3 != 0 || h4 != 0 || llambda_0 != 0) {
+        sysnr = 7;
+    }
+
     if (ver == 0) {
-        route = randomwalk(start, n, gen, path_length);
+        route = randomwalk([53, 8], 4, 100, 0.5);
     } else {
-        route = migration(sysnr, magnet, wind, maxdays);
+        route = migration(sysnr, magnet, wind, maxdays, initHeading_arr, llambda_0);
     }
     // route = sun(start,n,gen,path_length);
     console.log(route.filter((el) => el === null || el === undefined).length)

@@ -16,6 +16,8 @@
 
 <div id="chartdiv"></div>
 
+<!--<div id="container"></div>-->
+
 <div id="menu">
     <div class="strategy item">
         <div>Strategy: <select id="strategy">
@@ -54,26 +56,40 @@
     <div class="route item">
         <div>Max duration (days): <input type="double" id="maxdays" value=50></input></div>
     </div>
-    <h4>Randomwalk parameters:</h4>
-    <div class="route item">
-        <div>Individuals: <input type="number" id="individuals" value=4></input></div>
+    <div class="heading item">
+        <div>Init headings:
+        <input type="double" id="h1" value="0">
+        <input type="double" id="h2" value="0">
+        <input type="double" id="h3" value="0"> <!--taking array input by input name array[]-->
+        <input type="double" id="h4" value="0">
+        </div>
     </div>
-    <div class="route item">
-        <div>Steps: <input type="number" id="route_length" value=100></input></div>
-    </div>
-    <div class="route item">
-        <div>Step length: <input type="number" id="incr_length" value=0.5></input></div>
+    <div class="llambda item">
+        <div>llambda0: <input type="double" id="llambda0" value=0></input></div>
     </div>
     <div class="start item">
         <div><b>Start</b> lat: <input type="double" id="lat" value="53"></input> long: <input type="double" id="long"
                                                                                               value="8"></input></div>
     </div>
     <div class="button item">
-        <div>
-            <button onclick="update()">Run</button> <button onclick="clear_all()">Clear</button>
-        </div>
+    <div>
+        <button onclick="update()">Run</button> <button onclick="clear_all()">Clear</button>
+    </div>
     </div>
 </div>
+
+<!--    <h4>Randomwalk parameters:</h4>-->
+<!--    <div class="route item">-->
+<!--        <div>Individuals: <input type="number" id="individuals" value=4></input></div>-->
+<!--    </div>-->
+<!--    <div class="route item">-->
+<!--        <div>Steps: <input type="number" id="route_length" value=100></input></div>-->
+<!--    </div>-->
+<!--    <div class="route item">-->
+<!--        <div>Step length: <input type="number" id="incr_length" value=0.5></input></div>-->
+<!--    </div>-->
+
+
 
 <script src="js/world.js"></script>
 <script src="js/dynamic.js"></script>

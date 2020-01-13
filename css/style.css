@@ -7,6 +7,12 @@ body {
     height: 600px;
 }
 
+#magnetfield {
+    width: 80%;
+    height: 600px;
+    fill: darkred;
+}
+
 #menu {
     position: fixed;
     top: 40px;
@@ -39,6 +45,11 @@ body {
     vertical-align: middle;
 }
 
+#menu .item .low {
+    display: inline-block;
+    width: 30px;
+    text-align: right;
+}
 #menu .item .low {
     display: inline-block;
     width: 30px;

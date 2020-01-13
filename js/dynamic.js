@@ -38,7 +38,7 @@ function calc_init_heads(a, b, deg2rad, magnet) {
     }
 }
 
-function migration(sys_nr, magn_comp_type, wind, maxdays) {
+function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda_0) {
 
     // general inits
     //let magn_comp_type = 2; // compass type 1 = magnetoclinic 2 = inclination gradient shifted
@@ -98,6 +98,12 @@ function migration(sys_nr, magn_comp_type, wind, maxdays) {
 
             llamda_0 = 80 * deg2rad;
             init_heads = calc_init_heads([30, 50, 70, 90], [30, 40, 50, 60], deg2rad, magn_comp_type)
+            break;
+        case 7: // given headings
+
+            llamda_0 = _llamda_0 * deg2rad;
+            init_heads = calc_init_heads(initHeads_arr, [30, 40, 50, 60], deg2rad, 1)
+
     }
 
     // initialize magnetic components assuming (non-tilted) dipole geomagnetic field
