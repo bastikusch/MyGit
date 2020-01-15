@@ -1,3 +1,6 @@
+<!--Index sheet-->
+<!--Html document to start app-->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,90 +11,112 @@
 
 <body>
 
+<!--External scripts to run visualisation-->
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
 <script src="https://www.amcharts.com/lib/4/maps.js"></script>
 <script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
 
-<div id="chartdiv"></div>
+<!--Division init-->
+<div id="container">
 
-<!--<div id="container"></div>-->
+    <div id="chartdiv"></div>
 
-<div id="menu">
-    <div class="strategy item">
-        <div>Strategy: <select id="strategy">
-            <option value=1>Migration</option>
-            <option value=0>Random Walk</option>
-        </select></div>
-    </div>
-    <div class="interpolation item">
-        <div>Interpolation: <select id="interpolation">
-            <option value=0>Line</option>
-            <option value=1>Spline</option>
-            <option value=2>Arc</option>
-        </select></div>
-    </div>
-    <h4>Migration parameters:</h4>
-    <div class="strategy item">
-        <div>Route: <select id="system">
-            <option value=4>E Europe - Africa</option>
-            <option value=1>E Canada - South America</option>
-            <option value=2>W Canada - South America</option>
-            <option value=3>W Europe - W Africa</option>
-            <option value=5>Alaska - Africa</option>
-            <option value=6>Siberia - Africa</option>
-        </select></div>
-    </div>
-    <div class="strategy item">
-        <div>Magnet compass type: <select id="magnet">
-            <option value=1>magnetoclinic</option>
-            <option value=2>inclination gradient shifted</option>
-        </select></div>
-    </div>
-    <div class="wind item">
-        <div><b>Wind</b> incl: <input type="double" id="incl" value="0"></input> u: <input type="double" id="u" value="1"></input>
-            v: <input type="double" id="v" value="1"></input></div>
-    </div>
-    <div class="route item">
-        <div>Max duration (days): <input type="double" id="maxdays" value=50></input></div>
-    </div>
-    <div class="heading item">
-        <div>Init headings:
-        <input type="double" id="h1" value="0">
-        <input type="double" id="h2" value="0">
-        <input type="double" id="h3" value="0"> <!--taking array input by input name array[]-->
-        <input type="double" id="h4" value="0">
+<!--    <canvas id="magnetfield"></canvas>-->
+
+    <div id="menu">
+
+        <h4>Simulation Parameters:</h4>
+        <div class="strategy item">
+            <div>Strategy:
+                <select id="strategy">
+                <option value=1>Migration</option>
+                <option value=0>Random Walk</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="llambda item">
-        <div>llambda0: <input type="double" id="llambda0" value=0></input></div>
-    </div>
-    <div class="start item">
-        <div><b>Start</b> lat: <input type="double" id="lat" value="53"></input> long: <input type="double" id="long"
-                                                                                              value="8"></input></div>
-    </div>
-    <div class="button item">
-    <div>
-        <button onclick="update()">Run</button> <button onclick="clear_all()">Clear</button>
-    </div>
+
+        <div class="interpolation item">
+            <div>Interpolation Type:
+                <select id="interpolation">
+                <option value=0>Line</option>
+                <option value=1>Spline</option>
+                <option value=2>Arc</option>
+                </select>
+            </div>
+        </div>
+
+        <h4>Migration parameters:</h4>
+        <div class="strategy item">
+            <div>Route:
+                <select id="system">
+                <option value=4>East Europe - Africa</option>
+                <option value=1>East Canada - South America</option>
+                <option value=2>West Canada - South America</option>
+                <option value=3>West Europe - West Africa</option>
+                <option value=5>Alaska - Africa</option>
+                <option value=6>Siberia - Africa</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="start item">
+            <div><b>Starting</b>
+                Lat: <input type="double" id="lat" value="53">
+                Long: <input type="double" id="long" value="8">
+            </div>
+        </div>
+
+        <div class="route item">
+            <div>Maximal Flight Duration: <input type="double" id="maxdays" value=50> days</div>
+        </div>
+
+        <div class="strategy item">
+            <div>Compass Type:
+                <select id="magnet">
+                <option value=1>Magnetoclinic</option>
+                <option value=2>Inclination Gradient Shifted</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="wind item">
+            <div><b>Wind:</b>
+                Inclinaton: <input type="double" id="incl" value="0">
+                Speed: <input type="double" id="u" value="1">
+                <input type="double" id="v" value="1">
+            </div>
+        </div>
+
+        <div class="heading item">
+            <div>Headings(degree):
+            <input type="integer" id="h1" value="0">
+            <input type="integer" id="h2" value="0">
+            <input type="integer" id="h3" value="0">
+            <input type="integer" id="h4" value="0">
+            </div>
+        </div>
+
+        <div class="button item">
+            <div>
+                <button onclick="update()">Run</button>
+                <button onclick="clear_all()">Clear</button>
+                <button onclick="showReport()">Report</button>
+            </div>
+        </div>
+        <div class="button item">
+            <div>
+                <button onclick="showMagnet()">Magnet</button>
+            </div>
+        </div>
     </div>
 </div>
 
-<!--    <h4>Randomwalk parameters:</h4>-->
-<!--    <div class="route item">-->
-<!--        <div>Individuals: <input type="number" id="individuals" value=4></input></div>-->
-<!--    </div>-->
-<!--    <div class="route item">-->
-<!--        <div>Steps: <input type="number" id="route_length" value=100></input></div>-->
-<!--    </div>-->
-<!--    <div class="route item">-->
-<!--        <div>Step length: <input type="number" id="incr_length" value=0.5></input></div>-->
-<!--    </div>-->
-
-
-
+<!--Inclusion of javascript files-->
 <script src="js/world.js"></script>
+<script src="js/functionality.js"></script>
+<script src="js/helpfunctions.js"></script>
 <script src="js/dynamic.js"></script>
 <script src="js/routes.js"></script>
 

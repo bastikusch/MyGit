@@ -1,3 +1,5 @@
+// Create world map.....................................................................................
+
 // Initalize Theme
 am4core.useTheme(am4themes_animated);
 
@@ -13,10 +15,10 @@ chart.projection = new am4maps.projections.Mercator();
 
 // Add zoom control
 chart.zoomControl = new am4maps.ZoomControl();
-chart.zoomControl.slider.height = 80;
+chart.zoomControl.slider.height = 60;
 
-// Set initial zoom
-chart.homeZoomLevel = 1.0;
+// Set initial zoom and center of map
+chart.homeZoomLevel = 1.3;
 chart.homeGeoPoint = {
     latitude: 30,
     longitude: 8
@@ -38,61 +40,7 @@ polygonTemplate.fill = am4core.color("sandybrown");
 
 // Create hover state and set alternative fill color
 var hs = polygonTemplate.states.create("hover");
-hs.properties.fill = am4core.color("grey");
-
-let linkContainer = chart.createChild(am4core.Container);
-linkContainer.isMeasured = false;
-linkContainer.layout = "horizontal";
-linkContainer.x = am4core.percent(50);
-linkContainer.y = am4core.percent(95);
-linkContainer.horizontalCenter = "middle";
-
-let equirectangular= linkContainer.createChild(am4core.TextLink);
-equirectangular.margin(10,10,10,10);
-equirectangular.text = "Equirectangular";
-equirectangular.fill = "black";
-equirectangular.events.on("hit", function(){
-    chart.projection = new am4maps.projections.Projection();
-    chart.panBehavior = "move";
-})
-
-let mercator = linkContainer.createChild(am4core.TextLink);
-mercator.text = "Mercator";
-mercator.fill = "black";
-mercator.margin(10,10,10,10);
-mercator.events.on("hit", function(){
-    chart.projection = new am4maps.projections.Mercator();
-    chart.panBehavior = "move";
-})
-
-let orthographic = linkContainer.createChild(am4core.TextLink);
-orthographic.margin(10,10,10,10);
-orthographic.text = "Orthographic";
-orthographic.fill = "black";
-orthographic.events.on("hit", function(){
-    chart.projection = new am4maps.projections.Orthographic();
-    chart.panBehavior = "rotateLongLat";
-})
-
-// Create small map to help navigate
-chart.smallMap = new am4maps.SmallMap();
-chart.smallMap.series.push(polygonSeries);
-
-// Set home button and export menu
-var button = chart.chartContainer.createChild(am4core.Button);
-button.label.text = "Home";
-button.padding(5, 5, 5, 5);
-button.width = 60;
-button.align = "right";
-button.marginRight = 15;
-button.events.on("hit", function () {
-    chart.goHome();
-});
-
-chart.exporting.menu = new am4core.ExportMenu();
-chart.exporting.menu.container = document.getElementById("menu");
-chart.exporting.menu.align = "right";
-chart.exporting.menu.verticalAlign = "bottom";
+hs.properties.fill = am4core.color("darkred");
 
 // create image at start point
 var imageSeries = chart.series.push(new am4maps.MapImageSeries());
@@ -111,22 +59,24 @@ var marker = imageSeries.mapImages.create();
 marker.latitude = parseFloat(document.getElementById("lat").value);
 marker.longitude = parseFloat(document.getElementById("long").value);
 
-// get start coordinates onclick
-chart.seriesContainer.events.on("hit", function (ev) {
-    document.getElementById("lat").value = chart.svgPointToGeo(ev.svgPoint).latitude.toFixed(2);
-    document.getElementById("long").value = chart.svgPointToGeo(ev.svgPoint).longitude.toFixed(2);
-    marker.latitude = parseFloat(document.getElementById("lat").value);
-    marker.longitude = parseFloat(document.getElementById("long").value);
-});
 
-// var container = am4core.create("container", am4core.Container);
-// container.width = am4core.percent(1000);
-// container.height = am4core.percent(1000);
-//
-// // Create a container child
-// var rect = container.createChild(am4core.Rectangle);
-// rect.width = 100;
-// rect.height = 100;
-// rect.fill = am4core.color("red");
+// create magnetfield
+// var magnetfield = document.getElementById("magnetfield");
+// var ctx = magnetfield.getContext("2d");
+// var grd = ctx.createLinearGradient(0, 0, 300, 0);
+// grd.addColorStop(0, "red");
+// grd.addColorStop(1, "blue");
+// ctx.fillStyle = grd;
+// ctx.globalAlpha = 0;
+// ctx.fillRect(0, 0, 1000, 1000);
+
+// function showMagnet(){
+//     if (ctx.globalAlpha == 0) {
+//         ctx.globalAlpha = 0.5;
+//     }
+//     else {
+//         ctx.globalAlpha = 0;
+//     }
+// }
 
 
