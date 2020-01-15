@@ -2,6 +2,7 @@
 
 ToDo:
 
+- [ ] Add report window, that gives feedback/statistics to the simulation runs
 - [ ] Add Function for adjusted dynamic over Land/Water (maybe difficult, no real package like matlab overLandOrWater)
 - [ ] Change visualization package from amcharts to d3.js (if desired, will be a little more time consuming then the rest)
 - [ ] Add extended/adjusted magnetic field, maybe with overlay in app
