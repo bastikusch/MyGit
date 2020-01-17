@@ -4,7 +4,7 @@ ToDo:
 
 - [ ] Modularize Simulation to make it more accessible and easy to extend/understand/switch out functionality
 - [ ] Add report window, that gives feedback/statistics to the simulation runs
-- [ ] Add Function for adjusted dynamic over Land/Water (maybe difficult, no real package like matlab overLandOrWater)
+- [ ] Add Function for adjusted dynamic over Land/Water (maybe difficult, no easy accesible package like matlab land_or_ocean)
 - [ ] Change visualization package from amcharts to d3.js (if desired, will be a little more time consuming then the rest)
 - [ ] Add extended/adjusted magnetic field, maybe with overlay in app
 - [ ] Write github documentation for the birdmigration app
