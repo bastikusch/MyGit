@@ -66,6 +66,27 @@ function showReport(){
     // var myWindow = window.open("/report.html", "", "width=800,height=600");
 }
 
+// function range(start, end, stepsize){
+//     let ls = [];
+//     let n = (end - start) / stepsize;
+//     for (let j = 0; j < n; j++){
+//         ls.push(n + j * stepsize);
+//     }
+//     return ls;
+// }
+//
+// function showMagnet(){
+//     let lat_arr = [-75,-60,-45,-30,-15,0,15,30,45,60,75];
+//     let list_list = [];
+//     for (let i = 0; i < lat_arr.length; i++){
+//         let long_list = [];
+//         let long_arr = range(0, 360, 36);
+//         for (let j = 0; j < lat_arr.length; i++){
+//             long_list.push()
+//         }
+//     }
+// }
+
 
 
 

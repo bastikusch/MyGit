@@ -37,3 +37,10 @@ function calc_init_heads(a, b, deg2rad, magnet) {
         return math.dotMultiply(b, deg2rad)
     }
 }
+
+function magnetField(latitude){
+    let deg2rad = math.pi / 180;
+    let theta = deg2rad * latitude
+    let inclin = math.atan(2 * math.tan(theta));
+    return inclin
+}

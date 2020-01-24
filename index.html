@@ -6,8 +6,9 @@
     <meta charset="UTF-8">
     <title>Migration</title>
     <link rel="stylesheet" href="css/style.css">
+
 </head>
-<h1>Visualizing Bird Migration</h1>
+<h1>BIRDWATCH</h1>
 
 <body>
 
@@ -26,88 +27,113 @@
 <!--    <canvas id="magnetfield"></canvas>-->
 
     <div id="menu">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Simulation')">Simulation</button>
+            <button class="tablinks" onclick="openTab(event, 'Stats')">Stats</button>
+            <button class="tablinks" onclick="openTab(event, 'Data')">Data</button>
+            <button class="tablinks" onclick="openTab(event, 'Environment')">Environment</button>
+        </div>
 
-        <h4>Simulation Parameters:</h4>
-        <div class="strategy item">
-            <div>Strategy:
-                <select id="strategy">
-                <option value=1>Migration</option>
-                <option value=0>Random Walk</option>
-                </select>
+        <!-- Tab content -->
+        <div id="Simulation" class="tabcontent">
+            <h4>Simulation Parameters:</h4>
+            <div class="strategy item">
+                <div>Strategy:
+                    <select id="strategy">
+                        <option value=1>Migration</option>
+                        <option value=0>Random Walk</option>
+                    </select>
+                </div>
+            </div>
+            <div class="interpolation item">
+                <div>Interpolation Type:
+                    <select id="interpolation">
+                        <option value=0>Line</option>
+                        <option value=1>Spline</option>
+                        <option value=2>Arc</option>
+                    </select>
+                </div>
+            </div>
+            <h4>Migration parameters:</h4>
+            <div class="strategy item">
+                <div>Route:
+                    <select id="system">
+                        <option value=4>East Europe - Africa</option>
+                        <option value=1>East Canada - South America</option>
+                        <option value=2>West Canada - South America</option>
+                        <option value=3>West Europe - West Africa</option>
+                        <option value=5>Alaska - Africa</option>
+                        <option value=6>Siberia - Africa</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="start item">
+                <div><b>Starting</b>
+                    Lat: <input type="double" id="lat" value="53">
+                    Long: <input type="double" id="long" value="8">
+                </div>
+            </div>
+
+            <div class="route item">
+                <div>Maximal Flight Duration: <input type="double" id="maxdays" value=50> days</div>
+            </div>
+
+            <div class="strategy item">
+                <div>Compass Type:
+                    <select id="magnet">
+                        <option value=1>Magnetoclinic</option>
+                        <option value=2>Inclination Gradient Shifted</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="wind item">
+                <div><b>Wind:</b>
+                    Inclinaton: <input type="double" id="incl" value="0">
+                    Speed: <input type="double" id="u" value="1">
+                    <input type="double" id="v" value="1">
+                </div>
+            </div>
+            <div class="heading item">
+                <div>Headings(degree):
+                    <input type="integer" id="h1" value="0">
+                    <input type="integer" id="h2" value="0">
+                    <input type="integer" id="h3" value="0">
+                    <input type="integer" id="h4" value="0">
+                </div>
+            </div>
+            <div class="button item">
+                <div>
+                    <button onclick="update()">Run</button>
+                    <button onclick="clear_all()">Clear</button>
+                    <button onclick="showReport()">Report</button>
+                </div>
             </div>
         </div>
 
-        <div class="interpolation item">
-            <div>Interpolation Type:
-                <select id="interpolation">
-                <option value=0>Line</option>
-                <option value=1>Spline</option>
-                <option value=2>Arc</option>
-                </select>
+        <div id="Stats" class="tabcontent">
+            <h3>Stats Tab</h3>
+            <p>Could show statistics of simulation</p>
+            <div class="button item">
+                <div>
+                    <button onclick="showReport()">Report</button>
+                </div>
             </div>
         </div>
 
-        <h4>Migration parameters:</h4>
-        <div class="strategy item">
-            <div>Route:
-                <select id="system">
-                <option value=4>East Europe - Africa</option>
-                <option value=1>East Canada - South America</option>
-                <option value=2>West Canada - South America</option>
-                <option value=3>West Europe - West Africa</option>
-                <option value=5>Alaska - Africa</option>
-                <option value=6>Siberia - Africa</option>
-                </select>
-            </div>
+        <div id="Data" class="tabcontent">
+            <h3>Data Tab</h3>
+            <p>Could show exemplary data of some birds</p>
         </div>
 
-        <div class="start item">
-            <div><b>Starting</b>
-                Lat: <input type="double" id="lat" value="53">
-                Long: <input type="double" id="long" value="8">
-            </div>
-        </div>
-
-        <div class="route item">
-            <div>Maximal Flight Duration: <input type="double" id="maxdays" value=50> days</div>
-        </div>
-
-        <div class="strategy item">
-            <div>Compass Type:
-                <select id="magnet">
-                <option value=1>Magnetoclinic</option>
-                <option value=2>Inclination Gradient Shifted</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="wind item">
-            <div><b>Wind:</b>
-                Inclinaton: <input type="double" id="incl" value="0">
-                Speed: <input type="double" id="u" value="1">
-                <input type="double" id="v" value="1">
-            </div>
-        </div>
-
-        <div class="heading item">
-            <div>Headings(degree):
-            <input type="integer" id="h1" value="0">
-            <input type="integer" id="h2" value="0">
-            <input type="integer" id="h3" value="0">
-            <input type="integer" id="h4" value="0">
-            </div>
-        </div>
-
-        <div class="button item">
-            <div>
-                <button onclick="update()">Run</button>
-                <button onclick="clear_all()">Clear</button>
-                <button onclick="showReport()">Report</button>
-            </div>
-        </div>
-        <div class="button item">
-            <div>
-                <button onclick="showMagnet()">Magnet</button>
+        <div id="Environment" class="tabcontent">
+            <h3>Environment Tab</h3>
+            <p>Could show environmental data like magnetfield, sun data, etc.</p>
+            <div class="button item">
+                <div>
+                    <button onclick="showMagnet()">Magnet</button>
+                </div>
             </div>
         </div>
     </div>
