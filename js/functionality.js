@@ -58,6 +58,11 @@ chart.exporting.menu.container = document.getElementById("Data");
 chart.exporting.menu.align = "right";
 chart.exporting.menu.verticalAlign = "bottom";
 
+// open simulation tab by default
+document.getElementById("defaultOpen").click();
+// hide personalized parameter inputs for simulation
+document.getElementById("grey").hidden = true;
+
 // get start coordinates onclick..................................................................................
 
 chart.seriesContainer.events.on("hit", function (ev) {
@@ -87,3 +92,8 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+function greyOut() {
+    document.getElementById("grey").hidden = !document.getElementById("grey").hidden;
+}
+
