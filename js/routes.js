@@ -44,7 +44,6 @@ function update() {
     } else {
         route = migration(sysnr, magnet, wind, maxdays, initHeading_arr, start_long);
     }
-
     lineSeries.data = [{
         "multiGeoLine": route
     }];
@@ -66,26 +65,36 @@ function showReport(){
     // var myWindow = window.open("/report.html", "", "width=800,height=600");
 }
 
-// function range(start, end, stepsize){
-//     let ls = [];
-//     let n = (end - start) / stepsize;
-//     for (let j = 0; j < n; j++){
-//         ls.push(n + j * stepsize);
-//     }
-//     return ls;
-// }
-//
-// function showMagnet(){
-//     let lat_arr = [-75,-60,-45,-30,-15,0,15,30,45,60,75];
-//     let list_list = [];
-//     for (let i = 0; i < lat_arr.length; i++){
-//         let long_list = [];
-//         let long_arr = range(0, 360, 36);
-//         for (let j = 0; j < lat_arr.length; i++){
-//             long_list.push()
-//         }
-//     }
-// }
+
+
+function magnet(){
+
+    var lineSeries = chart.series.push(new am4maps.MapLineSeries());
+    lineSeries.dataFields.multiGeoLine = "multiGeoLine";
+    var declination = [{"latitude": -90, "longitude": -180}];
+    AmCharts.loadFile( "data/csvfiles/Declination.csv", {}, function( response ) {
+
+        var d = AmCharts.parseCSV(response, {
+            "separator": ",",
+            "useColumnNames": true,
+            "numberFields": ["value"]
+        });
+        for (var i = 0, len = d.length; i < len; i++) {
+            if (Math.abs(+d[i].decl - 140) < 0.5){
+                declination.push({
+                    latitude: +d[i].latitude,
+                    longitude: +d[i].longitude
+                });
+            }
+        }
+        lineSeries.data = [{
+            "multiGeoLine": declination
+        }];
+
+        lineSeries.mapLines.create();
+    });
+}
+
 
 
 
