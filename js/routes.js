@@ -20,7 +20,7 @@ function update() {
     //lineTemplate.line.controlPointDistance = 0.2;
 
     // var n = parseFloat(document.getElementById("individuals").value);
-    // var start_lat = parseFloat(document.getElementById("lat").value);
+    var start_lat = parseFloat(document.getElementById("lat").value);
     var start_long = parseFloat(document.getElementById("long").value);
     var ver = document.getElementById("strategy").value;
     var sysnr = parseFloat(document.getElementById("system").value);
@@ -35,15 +35,16 @@ function update() {
     var h4 = document.getElementById("h4").value;
     var initHeading_arr = [h1, h2, h3, h4];
 
-    if (h1 != 0 || h2 != 0 || h3 != 0 || h4 != 0) {
+    if (!document.getElementById("grey").hidden) {
         sysnr = 7;
     }
-
+    console.log(sysnr);
     if (ver == 0) {
         route = randomwalk([53, 8], 4, 100, 0.5);
     } else {
-        route = migration(sysnr, magnet, wind, maxdays, initHeading_arr, start_long);
+        route = migration(sysnr, magnet, wind, maxdays, initHeading_arr, start_long, start_lat);
     }
+
     lineSeries.data = [{
         "multiGeoLine": route
     }];

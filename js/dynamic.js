@@ -1,5 +1,5 @@
 
-function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda_0, lat_0 = 60, lat_dest = -5) {
+function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda_0, lat_0 = 60, lat_dest = -60) {
 
     // general inits
     //let magn_comp_type = 2; // compass type 1 = magnetoclinic 2 = inclination gradient shifted
