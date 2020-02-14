@@ -67,11 +67,12 @@ function showReport(){
 
 
 
-function magnet(){
+function magnet2(){
 
     var lineSeries = chart.series.push(new am4maps.MapLineSeries());
     lineSeries.dataFields.multiGeoLine = "multiGeoLine";
     var declination = [{"latitude": -90, "longitude": -180}];
+
     AmCharts.loadFile( "data/csvfiles/Declination.csv", {}, function( response ) {
 
         var d = AmCharts.parseCSV(response, {
@@ -79,20 +80,78 @@ function magnet(){
             "useColumnNames": true,
             "numberFields": ["value"]
         });
+
         for (var i = 0, len = d.length; i < len; i++) {
-            if (Math.abs(+d[i].decl - 140) < 0.5){
+            if (+d[i].error == 0.4){
                 declination.push({
                     latitude: +d[i].latitude,
                     longitude: +d[i].longitude
                 });
             }
+
         }
+
         lineSeries.data = [{
-            "multiGeoLine": declination
+            "multiGeoLine": [declination]
         }];
 
         lineSeries.mapLines.create();
+
     });
+}
+
+function magnet(){
+    var circleSeries = chart.series.push(new am4maps.MapPolygonSeries())
+    var circleTemplate = circleSeries.mapPolygons.template;
+    circleTemplate.fill = am4core.color("black");
+    circleTemplate.strokeOpacity = 0;
+    circleTemplate.fillOpacity = 1;
+    circleTemplate.nonScalingStroke = true;
+
+
+    AmCharts.loadFile( "data/csvfiles/Declination.csv", {}, function( response ) {
+
+        var d = AmCharts.parseCSV(response, {
+            "separator": ",",
+            "useColumnNames": true,
+            "numberFields": ["value"]
+        });
+        for (var i = 0, len = d.length; i < len; i = i + 3) {
+            if (+d[i].error == 0.4) {
+                var polygon = circleSeries.mapPolygons.create();
+                polygon.multiPolygon = am4maps.getCircle(+d[i].latitude, +d[i].longitude, 1);
+            }
+        }
+    });
+}
+
+function magnet3(){
+    var size = 100, x = new Array(size), y = new Array(size), z = new Array(size), i, j;
+
+    for(var i = 0; i < size; i++) {
+        x[i] = y[i] = -2 * Math.PI + 4 * Math.PI * i / size;
+        z[i] = new Array(size);
+    }
+
+    for(var i = 0; i < size; i++) {
+        for(j = 0; j < size; j++) {
+            var r2 = x[i]*x[i] + y[j]*y[j];
+            z[i][j] = Math.sin(x[i]) * Math.cos(y[j]) * Math.sin(r2) / Math.log(r2+1);
+        }
+    }
+
+    var data = [ {
+        z: z,
+        x: x,
+        y: y,
+        type: 'contour'
+    }
+    ];
+
+    var layout = {
+        autosize: true,
+    };
+    Plotly.newPlot('magnetfield', data, layout, {displayModeBar: false});
 }
 
 
