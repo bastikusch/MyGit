@@ -1,4 +1,6 @@
 
+// function that performs simulation of migration route
+
 function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda_0, lat_0 = 60, lat_dest = -60) {
 
     // general inits
@@ -12,7 +14,7 @@ function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda
 
     // Latitude calcs
     let Lat_dep = lat_0; // Latitude = theta
-    let Lat_arr = lat_dest;
+    let Lat_arr = lat_dest; // end latitude
     let rad2deg = 180 / math.pi;
     let deg2rad = math.pi / 180;
     let theta_0 = Lat_dep * deg2rad;
@@ -60,7 +62,8 @@ function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda
             llamda_0 = 80 * deg2rad;
             init_heads = calc_init_heads([30, 50, 70, 90], [30, 40, 50, 60], deg2rad, magn_comp_type)
             break;
-        case 7: // given headings
+
+        case 7: // personalized parameters
 
             llamda_0 = _llamda_0 * deg2rad;
             init_heads = calc_init_heads(initHeads_arr, [30, 40, 50, 60], deg2rad, 1)
@@ -71,6 +74,7 @@ function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda
     let inclin_0 =  math.atan(2 * math.tan(theta_0));
     let magncl_0 = math.dotDivide(math.tan(inclin_0), math.sin(init_heads));
 
+    // loop over inital headings
     for (ia = 0; ia < init_heads.length; ia++) {
 
         let theta = [theta_0];
@@ -149,6 +153,8 @@ function migration(sys_nr, magn_comp_type, wind, maxdays, initHeads_arr, _llamda
 
 }
 
+
+// examplary randomwalk function to show basic output structure to plot on map
 function randomwalk(start, n, gen, path_length) {
     var res = new Array();
     for (j = 0; j < n; j++) {
@@ -169,6 +175,5 @@ function randomwalk(start, n, gen, path_length) {
     return res;
 }
 
-//console.log(migration(1, 1, [1, 1, 1]));
 
 

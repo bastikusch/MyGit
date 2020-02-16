@@ -1,4 +1,5 @@
-// get normal distributed random number
+
+// get normal distributed random number (used for randomwalklike dynamic): Box-Müller algorithm
 function randn_bm() {
     var u = 0, v = 0;
     while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
@@ -6,7 +7,7 @@ function randn_bm() {
     return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
 }
 
-// shift angles if cross north south
+// shift angles if cross north south: for migration dynamic
 function shiftAngles(InA) {
     InA = math.abs(InA) > 180 ? math.mod(InA + 180, 2 * 180) - 180 : InA;
     return InA;
@@ -29,7 +30,7 @@ function update_loc(fl_hrs,hourly_del_Lat,curr_Lat,curr_Lon,curr_head,incl_wind,
     return [Lat, Lon]
 }
 
-// calculate initial headings
+// calculate initial headings based on magneticcompass type
 function calc_init_heads(a, b, deg2rad, magnet) {
     if (magnet == 1){
         return math.dotMultiply(a, deg2rad)
@@ -38,6 +39,7 @@ function calc_init_heads(a, b, deg2rad, magnet) {
     }
 }
 
+// function for simplified magentic field
 function magnetField(latitude){
     let deg2rad = math.pi / 180;
     let theta = deg2rad * latitude

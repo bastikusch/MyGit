@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
+<!--Headline-->
 <h1>BIRDWATCH</h1>
 
 <body>
@@ -18,20 +19,20 @@
 <script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
-<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
-<script src="https://www.amcharts.com/lib/3/themes/dark.js"></script>
 <script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
-<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 
-<!--Division init-->
+<!--Commetn in next line for Plotly package usage-->
+<!--<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>-->
+
+<!--Division initialization-->
 <div id="container">
 
     <div id="chartdiv"></div>
+<!--    Tried to include magentic field via external plot (see next line)-->
 <!--    <div id="magnetfield"></div>-->
 
-<!--    <canvas id="magnetfield"></canvas>-->
-
+<!--    Menu generation with tabcontents-->
     <div id="menu">
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Simulation')" id="defaultOpen">Simulation</button>
@@ -40,9 +41,10 @@
             <button class="tablinks" onclick="openTab(event, 'Environment')">Environment</button>
         </div>
 
-        <!-- Tab content -->
+        <!-- Tab content: Simulation -->
         <div id="Simulation" class="tabcontent">
             <h4>Simulation Parameters:</h4>
+<!--            Examplary routes-->
             <div class="strategy item">
                 <div>Route:
                     <select id="system">
@@ -57,7 +59,7 @@
             </div>
 
             <div class="route item">
-                <div>Maximal Flight Duration: <input type="double" id="maxdays" value=50> days</div>
+                <div>Maximal Flight Duration: <input type="double" id="maxdays" value=20> days</div>
             </div>
 
             <div class="strategy item">
@@ -83,6 +85,7 @@
                 <div>Personalized Simulation Parameters: <input type="checkbox" id="checkGrey" onclick="greyOut()"></div>
             </div>
 
+<!--            Make adjusted parameters visible with checkbox-->
             <div id="grey">
                 <div class="strategy item">
                     <div>Strategy:
@@ -100,6 +103,7 @@
                     </div>
                 </div>
 
+<!--                Heading array (length: 4)-->
                 <div class="heading item">
                     <div>Headings(degree):
                         <input type="integer" id="h1" value="0">
@@ -126,6 +130,7 @@
             </div>
         </div>
 
+<!--        Tab content: stats-->
         <div id="Stats" class="tabcontent">
             <h3>Stats Tab</h3>
             <p>Could show statistics of simulation</p>
@@ -138,22 +143,40 @@
 
         <div id="Data" class="tabcontent">
             <h3>Data Tab</h3>
-            <p>Could show exemplary data of some birds</p>
+            <p>Examplary Data of some birds:</p>
+
+            <div class="bird item">
+                <div>Examplary Bird Route:
+                    <select id="birddata">
+                        <option value=0>Bird1</option>
+                        <option value=1>Bird2</option>
+                        <option value=2>Bird3</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button item">
+                <div>
+                    <button onclick="birdData()">Plot Route</button>
+                </div>
+            </div>
         </div>
 
+<!--        Tab content: Environment-->
         <div id="Environment" class="tabcontent">
             <h3>Environment Tab</h3>
             <p>Could show environmental data like magnetfield, sun data, etc.</p>
             <div class="button item">
                 <div>
                     <button onclick="magnet()">Magnet</button>
+                    <button onclick="clear_all()">Clear</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--Inclusion of javascript files-->
+<!--Inclusion of javascript files to create app-->
 <script src="js/world.js"></script>
 <script src="js/functionality.js"></script>
 <script src="js/helpfunctions.js"></script>

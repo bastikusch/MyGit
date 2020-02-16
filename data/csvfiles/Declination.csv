@@ -1,4 +1,4 @@
-latitude,longitude,zero,year,decl,error
+latitude,longitude,zero,year,decl,val
 -90,-180,0,2017,149.65,0.4
 -90,-179,0,2017,148.65,0.4
 -90,-178,0,2017,147.65,0.4

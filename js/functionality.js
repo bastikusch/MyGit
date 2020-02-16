@@ -1,5 +1,5 @@
-// Add projection bar..................................................................................
 
+// Add projection bar:
 // container for projections
 let linkContainer = chart.createChild(am4core.Container);
 linkContainer.isMeasured = false;
@@ -8,7 +8,7 @@ linkContainer.x = am4core.percent(50);
 linkContainer.y = am4core.percent(95);
 linkContainer.horizontalCenter = "middle";
 
-// equiretangular, mercator and orthographic projections
+// equiretangular, mercator and orthographic projections. Can be extended if desired
 let equirectangular= linkContainer.createChild(am4core.TextLink);
 equirectangular.margin(10,10,10,10);
 equirectangular.text = "Equirectangular";
@@ -38,6 +38,8 @@ orthographic.events.on("hit", function(){
 
 // home button and exporting menu..................................................................................
 
+// Did not seem usefull so commented out small navigation map
+
 // Create small map to help navigate + function to hide
 // chart.smallMap = new am4maps.SmallMap();
 // chart.smallMap.series.push(polygonSeries);
@@ -53,25 +55,18 @@ button.events.on("hit", function () {
     chart.goHome();
 });
 
+// Exporting menu added to Data tab
 chart.exporting.menu = new am4core.ExportMenu();
 chart.exporting.menu.container = document.getElementById("Data");
 chart.exporting.menu.align = "right";
 chart.exporting.menu.verticalAlign = "bottom";
 
+// Handling of tabs........................................................................................
+
 // open simulation tab by default
 document.getElementById("defaultOpen").click();
-// hide personalized parameter inputs for simulation
-document.getElementById("grey").hidden = true;
 
-// get start coordinates onclick..................................................................................
-
-chart.seriesContainer.events.on("hit", function (ev) {
-    document.getElementById("lat").value = chart.svgPointToGeo(ev.svgPoint).latitude.toFixed(0);
-    document.getElementById("long").value = chart.svgPointToGeo(ev.svgPoint).longitude.toFixed(0);
-    marker.latitude = parseFloat(document.getElementById("lat").value);
-    marker.longitude = parseFloat(document.getElementById("long").value);
-});
-
+// function to open and switch between tabs
 function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -93,11 +88,27 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
+// Handling of hidden parameter part of simulation............................................................
+
+// hide personalized parameter inputs for simulation at beginning
+document.getElementById("grey").hidden = true;
+
+// function to hide and unhide personal parameters to adjust
 function greyOut() {
     document.getElementById("grey").hidden = !document.getElementById("grey").hidden;
 }
 
+// Data tab.................................................................................................
 
+// function to show report of simulation at some time
+// CARE NOT FILLED WITH INFORMATIO OR DATA YET
+
+function showReport(){
+    var myWindow = window.open("", "MsgWindow", 'height=500,width=900,left=300,top=150,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+    myWindow.document.write("<b>Could show statistics of last run simulation</b>" +
+        "<p>numbers of individuals survived: 100</p>");
+    // var myWindow = window.open("/report.html", "", "width=800,height=600");
+}
 
 
 
