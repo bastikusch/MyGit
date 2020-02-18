@@ -55,7 +55,8 @@ The "Report" button opens a new window, to show details and statistics about the
 
 
 #### Data:
-This tab plots the examplary trajectories of real bird data. The functions are implemented, the data is not available yet, though.
+This tab plots the examplary trajectories of real bird data. The functions are implemented, the data is not available yet, though. 
+Already included however is an exporting menu, marked by the button with the three dots. It allows to save map + calculated trajectories as a pdf,png, etc.
 
 
 #### Environment:
